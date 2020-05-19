@@ -31,9 +31,13 @@ Do a google search of 'pacman' and a playable form of pacman will show up.
 
 ## Teacher Response ##
 
-Approved | Not approved
+**Approved**
 
-Comments and suggestions
+A Pacman clone is a good choice but make sure you want to work hard because it will take hard work up front and get easier as you go.
+Two things to consider when planning this game:
+
+ - Pacman remembers your keypresses. Unless he's stuck in a corner on purpose, Pcman is always moving and he remembers both his current direction and the next direction you give him. For example, if Pacman is travelling EAST in a horizontal "hall" and the UP key is pressed, he ignores it and keeps moving EAST until NORTH opens up. Then he automatically goes NORTH because he remembers that the player most recently pressed UP. This is an important feature to implement so your Pacman doesn't get stuck on the corner of wall intersections. Effectively, while Pacman looks like he can move continuously, he is really going from grid point to gridpoint and he changes directions only when he's at an exact gridpoint location. If you allow Pacman to turn/move whenever the player pushes a new direction your gameplay will feel terrible because you'll get stuck on walls all the time.
+ - Programming ghosts takes time and there are lots of kinds of ghost movement you can create. The easiest ghosts to play against are ones that move randomly and have no idea who Pacman is. The hardest ghosts to play against are ones that hunt down and chase Pacman.
 
 ## Class Design and Brainstorm ##
 
