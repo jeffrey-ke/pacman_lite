@@ -47,9 +47,9 @@ Put all your brainstorm ideas, strategy approaches, and class outlines here
 
 Every day you work, keep track of it here.
 
-**Date (time spent)**
+**May 21 (time spent)**
 
-Goal:  What are you trying to accomplish today?
+Goal:  Code a concept demo
 
 Work accomplished:  Describe what you did today and how it went.
 
