@@ -27,6 +27,15 @@ public abstract class Actor extends javafx.scene.image.ImageView{
 		return getBoundsInParent().getHeight();
 	}
 	
+	public double getCenterX()
+	{
+		return getX() + getWidth()/2;
+	}
+	public double getCenterY()
+	{
+		return getY() + getHeight()/2;
+	}
+	
 	public <A extends Actor>List<A> getIntersectingObjects(java.lang.Class<A> cls) {
 		ArrayList<A>list=new ArrayList<>();
 		for(Node n : getWorld().getChildren()) {

@@ -40,8 +40,8 @@ public class Game extends Application {
 //				world.add(dot);
 //			}
 //		}
-		pac.setX(0);
-		pac.setY(0);
+		pac.setX(51);
+		pac.setY(51);
 		world.start();
 		String back_image = Game.class.getClassLoader().getResource("resources/dot_board.png").toString();
 		Image test = new Image(back_image);

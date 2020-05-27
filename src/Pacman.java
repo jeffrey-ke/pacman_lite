@@ -29,7 +29,7 @@ public class Pacman extends Actor {
 	public static final int DOWN = 2;
 	public static final int LEFT = 3;
 	
-	
+	private KeyCode movement;
 	public Pacman() {
 //		String path = Pacman.class.getClassLoader().getResource("resources/pacman_closed.png").toString();
 //		Image img = new Image(path);
@@ -53,13 +53,14 @@ public class Pacman extends Actor {
 		String rightC = Pacman.class.getClassLoader().getResource("resources/pac_right_closed.png").toString();
 		rightClosed = new Image(rightC);
 		
-		setImage(leftClosed);
-		direction = LEFT;
+		setImage(rightClosed);
+		direction = RIGHT;
 		
 		isClosed = true;
 		isAlive = true;
 	}
 
+	
 	@Override
 	public void act() {
 		// Making pac-man open and close with each animation frame.
@@ -83,43 +84,75 @@ public class Pacman extends Actor {
 		
 		//basic key commands to move pac-man. I'll have to 
 		//adjust it to account for the walls in pac-man
-		
+		boolean canMove = false;
+//		System.out.println();
+//		System.out.println("X: " + (int)getX());
+//		System.out.println("Y: " + (int)getY());
+		if(((int)getX() + 13)%16 == 0 && ((int)getY() + 13)%16==0)
+		{
+			//when pacman is at an integer grid point
+//			System.out.println("Turned!");
+			canMove = true;
+		}
 		
 		if(getWorld().isKeyDown(KeyCode.LEFT))
 		{
-			move(-3, 0);
-			direction = LEFT;
-			if(getOneIntersectingObject(Wall.class) != null)
-			{
-				move(3, 0);
-			}
+			movement = KeyCode.LEFT;
 		}
 		else if(getWorld().isKeyDown(KeyCode.RIGHT))
 		{
-			move(3, 0);
-			direction = RIGHT;
-			if(getOneIntersectingObject(Wall.class) != null)
-			{
-				move(-3, 0);
-			}
+			movement = KeyCode.RIGHT;
+//			direction = RIGHT;
+//			if(getOneIntersectingObject(Wall.class) != null)
+//			{
+//				move(-3, 0);
+//			}
 		}
 		else if(getWorld().isKeyDown(KeyCode.UP))
 		{
-			move(0, -3);
-			direction = UP;
-			if(getOneIntersectingObject(Wall.class) != null)
-			{
-				move(0, 3);
-			}
+			movement = KeyCode.UP;
+//			direction = UP;
+//			if(getOneIntersectingObject(Wall.class) != null)
+//			{
+//				move(0, 3);
+//			}
 		}
 		else if(getWorld().isKeyDown(KeyCode.DOWN))
 		{
-			move(0, 3);
-			direction = DOWN;
-			if(getOneIntersectingObject(Wall.class) != null)
-			{
-				move(0, -3);
+			movement = KeyCode.DOWN;
+//			direction = DOWN;
+//			if(getOneIntersectingObject(Wall.class) != null)
+//			{
+//				move(0, -3);
+//			}
+		}
+		
+		if(canMove)
+		{
+			if(movement == KeyCode.LEFT) {
+				direction = LEFT;
+				move(-1, 0);
 			}
+			else if(movement == KeyCode.RIGHT) {
+				direction = RIGHT;
+				move(1, 0);
+			}
+			else if (movement == KeyCode.UP) {
+				direction = UP;
+				move(0, -1);
+			}
+			else if(movement == KeyCode.DOWN) {
+				direction = DOWN;
+				move(0, 1);
+			}
+		}
+		else
+		{
+			if(direction == LEFT) move(-1, 0);
+			else if(direction == RIGHT) move(1, 0);
+			else if(direction == UP) move(0, -1);
+			else if(direction == DOWN) move(0, 1);
+			
 		}
 	
 		
