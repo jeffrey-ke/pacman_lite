@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 public class Ghost extends Actor {
 	
 	private int movement;
-	
+	 
 	public boolean isAlive;
 	
 	private int direction;
