@@ -88,70 +88,205 @@ public class Pacman extends Actor {
 //		System.out.println();
 //		System.out.println("X: " + (int)getX());
 //		System.out.println("Y: " + (int)getY());
-		if(((int)getX() + 13)%16 == 0 && ((int)getY() + 13)%16==0)
-		{
-			//when pacman is at an integer grid point
-//			System.out.println("Turned!");
-			canMove = true;
-		}
+//		System.out.println("Center: " + ((int)getX() + 13) + ", " + ((int)getY() + 13));
 		
+//		if(((int)getX() + 13)%16 == 0 && ((int)getY() + 13)%16==0)
+//		{
+//			//when pacman is at an integer grid point
+//			canMove = true;
+//		}
 		if(getWorld().isKeyDown(KeyCode.LEFT))
 		{
 			movement = KeyCode.LEFT;
+//			if(((int)getY() + 13)%16 == 0)
+//			{
+//				canMove = true;
+//			}
+//			move(-1, 0);
+//			if(getOneIntersectingObject(Wall.class) != null)
+//			{
+//				System.out.println("Hit a wall!");
+//				canMove = false;
+//			}
+//			move(1, 0);
 		}
 		else if(getWorld().isKeyDown(KeyCode.RIGHT))
 		{
 			movement = KeyCode.RIGHT;
-//			direction = RIGHT;
+//			if(((int)getY() + 13)%16 == 0)
+//			{
+//				canMove = true;
+//			}
+//			move(1, 0);
 //			if(getOneIntersectingObject(Wall.class) != null)
 //			{
-//				move(-3, 0);
+//				System.out.println("Hit a wall!");
+//				canMove = false;
 //			}
+//			move(-1, 0);
+			
 		}
 		else if(getWorld().isKeyDown(KeyCode.UP))
 		{
 			movement = KeyCode.UP;
-//			direction = UP;
+//			if(((int)getX() + 13)%16==0) 
+//			{
+//				canMove = true;
+//			}
+//			move(0, -1);
 //			if(getOneIntersectingObject(Wall.class) != null)
 //			{
-//				move(0, 3);
+//				System.out.println("Hit a wall!");
+//				canMove = false;
 //			}
+//			move(0, 1);
+			
 		}
 		else if(getWorld().isKeyDown(KeyCode.DOWN))
 		{
 			movement = KeyCode.DOWN;
-//			direction = DOWN;
+//			if(((int)getX() + 13)%16==0) 
+//			{
+//				canMove = true;
+//			}
+//			move(0, 1);
 //			if(getOneIntersectingObject(Wall.class) != null)
 //			{
-//				move(0, -3);
+//				System.out.println("Hit a wall!");
+//				canMove = false;
 //			}
+//			move(0, -1);
 		}
+//		System.out.print("Movement: ");
+		if(movement == KeyCode.LEFT)
+		{
+//			System.out.println("LEFT");
+			if(((int)getY() + 13)%16 == 0)
+			{
+				canMove = true;
+			}
+			move(-1, 0);
+			if(getOneIntersectingObject(Wall.class) != null)
+			{
+				canMove = false;
+			}
+			move(1, 0);
+		}
+		else if(movement == KeyCode.RIGHT)
+		{
+//			System.out.println("RIGHT");
+			if(((int)getY() + 13)%16 == 0)
+			{
+				canMove = true;
+			}
+			move(1, 0);
+			if(getOneIntersectingObject(Wall.class) != null)
+			{
+				canMove = false;
+			}
+			move(-1, 0);
+		}
+		else if(movement == KeyCode.UP)
+		{
+//			System.out.println("UP");
+			if(((int)getX() + 13)%16==0) 
+			{
+				canMove = true;
+			}
+			move(0, -1);
+			if(getOneIntersectingObject(Wall.class) != null)
+			{
+				canMove = false;
+			}
+			move(0, 1);
+		}
+		else if(movement == KeyCode.DOWN)
+		{
+//			System.out.println("DOWN");
+			if(((int)getX() + 13)%16==0) 
+			{
+				canMove = true;
+			}
+			move(0, 1);
+			if(getOneIntersectingObject(Wall.class) != null)
+			{
+				canMove = false;
+			}
+			move(0, -1);
+		}
+//		System.out.print("Direction: ");
+//		if(direction == UP) System.out.println("UP");
+//		else if(direction == DOWN) System.out.println("DOWN");
+//		else if(direction == LEFT) System.out.println("LEFT");
+//		else if(direction == RIGHT) System.out.println("RIGHT");
+//		
+//		System.out.println("Can Move: " + canMove);
 		
 		if(canMove)
 		{
 			if(movement == KeyCode.LEFT) {
 				direction = LEFT;
 				move(-1, 0);
+				if(getX() < 51 || getX() > 451 || getOneIntersectingObject(Wall.class) != null)
+				{
+					move(1, 0);
+				}
 			}
 			else if(movement == KeyCode.RIGHT) {
 				direction = RIGHT;
 				move(1, 0);
+				if(getX() < 51 || getX() > 451 || getOneIntersectingObject(Wall.class) != null)
+				{
+					move(-1, 0);
+				}
 			}
 			else if (movement == KeyCode.UP) {
 				direction = UP;
 				move(0, -1);
+				if(getY() < 51 || getY() > 499 || getOneIntersectingObject(Wall.class) != null)
+				{
+					move(0, 1);
+				}
 			}
 			else if(movement == KeyCode.DOWN) {
 				direction = DOWN;
 				move(0, 1);
+				if(getY() < 51 || getY() > 499 || getOneIntersectingObject(Wall.class) != null)
+				{
+					move(0, -1);
+				}
 			}
 		}
 		else
 		{
-			if(direction == LEFT) move(-1, 0);
-			else if(direction == RIGHT) move(1, 0);
-			else if(direction == UP) move(0, -1);
-			else if(direction == DOWN) move(0, 1);
+			if(direction == LEFT) {
+				move(-1, 0);
+				if(getX() < 51 || getX() > 451 || getOneIntersectingObject(Wall.class) != null)
+				{
+					move(1, 0);
+				}
+			}
+			else if(direction == RIGHT) {
+				move(1, 0);
+				if(getX() < 51 || getX() > 451 || getOneIntersectingObject(Wall.class) != null)
+				{
+					move(-1, 0);
+				}
+			}
+			else if(direction == UP) {
+				move(0, -1);
+				if(getY() < 51 || getY() > 502 || getOneIntersectingObject(Wall.class) != null)
+				{
+					move(0, 1);
+				}
+			}
+			else if(direction == DOWN) { 
+				move(0, 1);
+				if(getY() < 51 || getY() > 502 || getOneIntersectingObject(Wall.class) != null)
+				{
+					move(0, -1);
+				}
+			}
 			
 		}
 	
