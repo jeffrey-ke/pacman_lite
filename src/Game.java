@@ -17,6 +17,14 @@ public class Game extends Application {
 	private Ghost orange;
 	private Wall block_0;
 	private Wall block_1;
+	private Wall block_2;
+	private Wall block_3;
+	private Wall block_4;
+	private Wall block_5;
+	private Wall block_6;
+	private Wall block_7;
+	private Wall block_8;
+	private Wall block_9;
 	public Game() {
 		// TODO Auto-generated constructor stub
 	}
@@ -56,11 +64,35 @@ public class Game extends Application {
 		block_0.setY(80);
 		world.add(block_0);
 		
-		block_1 = new Wall(Game.class.getClassLoader().getResource("resources/smaller_block.png").toString());
+		block_1 = new Wall(Game.class.getClassLoader().getResource("resources/small_block.png").toString());
 		block_1.setX(160);
 		block_1.setY(80);
 		world.add(block_1);
 		
+		block_2 = new Wall(Game.class.getClassLoader().getResource("resources/small_block.png").toString());
+		block_2.setX(304);
+		block_2.setY(80);
+		world.add(block_2);
+		
+//		block_3 = new Wall(Game.class.getClassLoader().getResource("resources/smaller_block.png").toString());
+//		block_3.setX(400);
+//		block_3.setY(80);
+//		world.add(block_3);
+//		
+//		block_4 = new Wall(Game.class.getClassLoader().getResource("resources/line_small_hori.png").toString());
+//		block_4.setX(80);
+//		block_4.setY(144);
+//		world.add(block_4);
+//		
+//		block_5 = new Wall(Game.class.getClassLoader().getResource("resources/left_tee_vert.png").toString());
+//		block_5.setX(160);
+//		block_5.setY(144);
+//		world.add(block_5);
+//		
+//		block_6 = new Wall(Game.class.getClassLoader().getResource("resources/up_tee_hori.png").toString());
+//		block_6.setX(208);
+//		block_6.setY(144);
+//		world.add(block_6);
 		
 		
 		world.start();
