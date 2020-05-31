@@ -28,7 +28,7 @@ public class Game extends Application {
 	private Wall block_10;
 	private Wall block_11;
 	private Wall block_12;
-	private Wall block_13;
+	private Wall block_13;	
 	private Wall block_14;
 	private Wall block_15;
 	private Wall block_16;
@@ -75,7 +75,7 @@ public class Game extends Application {
 		
 		orange = new Ghost("orange");
 		world.add(orange);
-		orange.setX(49);
+		orange.setX(433);
 		orange.setY(49);
 		
 		block_0 = new Wall(Game.class.getClassLoader().getResource("resources/smaller_block.png").toString());

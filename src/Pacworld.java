@@ -14,7 +14,17 @@ public class Pacworld extends World {
 	@Override
 	public void act(long now) {
 		// TODO Auto-generated method stub
-			
+		if(isGameOver) {
+			Gameover g = new Gameover();
+			g.setX(180);
+			g.setY(306);
+			add(g);
+			getTimer().stop();
+		}
+	}
+	
+	public void setGameOver(boolean gameOver) {
+		isGameOver = gameOver;
 	}
 
 }

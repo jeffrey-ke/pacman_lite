@@ -8,15 +8,14 @@ public class Ghost extends Actor {
 	
 	private int movement;
 	 
-	public boolean isAlive;
-	
+	private boolean isAlive;
+	private boolean isDamaged;
 	private int direction;
 	
 	public static final int UP = 0;
 	public static final int RIGHT = 1;
 	public static final int DOWN = 2;
 	public static final int LEFT = 3;
-	public static final int[] directions = new int[4];
 	private Image up;
 	private Image right;
 	private Image down;
@@ -37,6 +36,7 @@ public class Ghost extends Actor {
 		isAlive = true;
 		setImage(down);
 		direction = DOWN;
+		isDamaged = false;
 	}
 
 	@Override
@@ -46,26 +46,23 @@ public class Ghost extends Actor {
 		else if(direction == UP) setImage(up);
 		else setImage(down);
 		
+		if(isDamaged) setImage(new Image(Ghost.class.getClassLoader().getResource("resource/ghost_damaged.png").toString()));
+		
 		Random rand = new Random();
 		boolean canMove = false;
-//		System.out.println("X: " + (int)getX());
-//		System.out.println("Y: " + (int)getY());
-//		System.out.println();
 		if((15 + (int)getX()) % 16 == 0 && (15 + (int)getY()) % 16 == 0)
 		{
 			canMove = true;
 		}
 		//chooses a random movement direction
 		movement = rand.nextInt(4);
-		directions[direction]++;
-		System.out.println(Arrays.toString(directions));
 		if(canMove)
 		{
 			if(movement == LEFT)
 			{
 				direction = LEFT;
 				move(-1, 0);
-				if(getX() < 49 || getX() > 451 ||getOneIntersectingObject(Wall.class) != null)
+				if(getX() < 49 || getX() > 451 || getOneIntersectingObject(Wall.class) != null)
 				{
 					move(1, 0);
 				}
@@ -74,7 +71,7 @@ public class Ghost extends Actor {
 			{
 				direction = RIGHT;
 				move(1, 0);
-				if(getX() < 49 || getX() > 451 ||getOneIntersectingObject(Wall.class) != null)
+				if(getX() < 49 || getX() > 451 || getOneIntersectingObject(Wall.class) != null)
 				{
 					move(-1, 0);
 				}
@@ -102,16 +99,16 @@ public class Ghost extends Actor {
 		{
 			if(direction == LEFT) {
 				move(-1, 0);
-				if(getX() < 49 || getX() > 451 || getOneIntersectingObject(Wall.class) != null)
+				if(getX() < 49 || getX() > 434 || getOneIntersectingObject(Wall.class) != null)
 				{
 					move(1, 0);
 				}
 			}
 			else if(direction == RIGHT) {
 				move(1, 0);
-				if(getX() < 49 || getX() > 451 || getOneIntersectingObject(Wall.class) != null)
+				if(getX() < 49 || getX() > 434 || getOneIntersectingObject(Wall.class) != null)
 				{
-					move(1, 0);
+					move(-1, 0);
 				}
 			}
 			else if(direction == UP) {
@@ -135,4 +132,8 @@ public class Ghost extends Actor {
 		return direction;
 	}
 
+	
+	public void setIsDamaged(boolean val) {
+		isDamaged = val;
+	}
 }

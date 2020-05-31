@@ -4,6 +4,7 @@ public class Pacman extends Actor {
 
 	private boolean isClosed;
 	private boolean isAlive;
+	private boolean isPowered;
 	/*
 	 * The following instant variables are images for 
 	 * when pacman moves up, down, left, and right
@@ -31,8 +32,6 @@ public class Pacman extends Actor {
 	
 	private KeyCode movement;
 	public Pacman() {
-//		String path = Pacman.class.getClassLoader().getResource("resources/pacman_closed.png").toString();
-//		Image img = new Image(path);
 		String upO = Pacman.class.getClassLoader().getResource("resources/pac_up_open.png").toString();
 		upOpen = new Image(upO);
 		String upC = Pacman.class.getClassLoader().getResource("resources/pac_up_closed.png").toString();
@@ -58,11 +57,16 @@ public class Pacman extends Actor {
 		
 		isClosed = true;
 		isAlive = true;
+		isPowered = false;
 	}
-
+	
+	public void setIsPowered(boolean val) {
+		isPowered = val;
+	}
 	
 	@Override
 	public void act() {
+		
 		// Making pac-man open and close with each animation frame.
 		if(direction == LEFT)
 		{
@@ -85,82 +89,25 @@ public class Pacman extends Actor {
 		//basic key commands to move pac-man. I'll have to 
 		//adjust it to account for the walls in pac-man
 		boolean canMove = false;
-//		System.out.println();
-//		System.out.println("X: " + (int)getX());
-//		System.out.println("Y: " + (int)getY());
-//		System.out.println("Center: " + ((int)getX() + 13) + ", " + ((int)getY() + 13));
-		
-//		if(((int)getX() + 13)%16 == 0 && ((int)getY() + 13)%16==0)
-//		{
-//			//when pacman is at an integer grid point
-//			canMove = true;
-//		}
 		if(getWorld().isKeyDown(KeyCode.LEFT))
 		{
 			movement = KeyCode.LEFT;
-//			if(((int)getY() + 13)%16 == 0)
-//			{
-//				canMove = true;
-//			}
-//			move(-1, 0);
-//			if(getOneIntersectingObject(Wall.class) != null)
-//			{
-//				System.out.println("Hit a wall!");
-//				canMove = false;
-//			}
-//			move(1, 0);
 		}
 		else if(getWorld().isKeyDown(KeyCode.RIGHT))
 		{
 			movement = KeyCode.RIGHT;
-//			if(((int)getY() + 13)%16 == 0)
-//			{
-//				canMove = true;
-//			}
-//			move(1, 0);
-//			if(getOneIntersectingObject(Wall.class) != null)
-//			{
-//				System.out.println("Hit a wall!");
-//				canMove = false;
-//			}
-//			move(-1, 0);
-			
 		}
 		else if(getWorld().isKeyDown(KeyCode.UP))
 		{
-			movement = KeyCode.UP;
-//			if(((int)getX() + 13)%16==0) 
-//			{
-//				canMove = true;
-//			}
-//			move(0, -1);
-//			if(getOneIntersectingObject(Wall.class) != null)
-//			{
-//				System.out.println("Hit a wall!");
-//				canMove = false;
-//			}
-//			move(0, 1);
-			
+			movement = KeyCode.UP;			
 		}
 		else if(getWorld().isKeyDown(KeyCode.DOWN))
 		{
 			movement = KeyCode.DOWN;
-//			if(((int)getX() + 13)%16==0) 
-//			{
-//				canMove = true;
-//			}
-//			move(0, 1);
-//			if(getOneIntersectingObject(Wall.class) != null)
-//			{
-//				System.out.println("Hit a wall!");
-//				canMove = false;
-//			}
-//			move(0, -1);
 		}
-//		System.out.print("Movement: ");
+		
 		if(movement == KeyCode.LEFT)
 		{
-//			System.out.println("LEFT");
 			if(((int)getY() + 13)%16 == 0)
 			{
 				canMove = true;
@@ -174,7 +121,6 @@ public class Pacman extends Actor {
 		}
 		else if(movement == KeyCode.RIGHT)
 		{
-//			System.out.println("RIGHT");
 			if(((int)getY() + 13)%16 == 0)
 			{
 				canMove = true;
@@ -188,7 +134,6 @@ public class Pacman extends Actor {
 		}
 		else if(movement == KeyCode.UP)
 		{
-//			System.out.println("UP");
 			if(((int)getX() + 13)%16==0) 
 			{
 				canMove = true;
@@ -202,7 +147,6 @@ public class Pacman extends Actor {
 		}
 		else if(movement == KeyCode.DOWN)
 		{
-//			System.out.println("DOWN");
 			if(((int)getX() + 13)%16==0) 
 			{
 				canMove = true;
@@ -214,14 +158,7 @@ public class Pacman extends Actor {
 			}
 			move(0, -1);
 		}
-//		System.out.print("Direction: ");
-//		if(direction == UP) System.out.println("UP");
-//		else if(direction == DOWN) System.out.println("DOWN");
-//		else if(direction == LEFT) System.out.println("LEFT");
-//		else if(direction == RIGHT) System.out.println("RIGHT");
-//		
-//		System.out.println("Can Move: " + canMove);
-		
+
 		if(canMove)
 		{
 			if(movement == KeyCode.LEFT) {
@@ -286,6 +223,15 @@ public class Pacman extends Actor {
 				{
 					move(0, -1);
 				}
+			}
+			
+		}
+		
+		if(getOneIntersectingObject(Ghost.class) != null) {
+			if(isPowered) getWorld().remove(getOneIntersectingObject(Ghost.class));
+			else {
+				isAlive = false;
+				((Pacworld)getWorld()).setGameOver(true);
 			}
 			
 		}

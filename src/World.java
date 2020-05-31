@@ -68,5 +68,8 @@ public abstract class World extends javafx.scene.layout.Pane {
 		}
 		return false;
 	}
+	public AnimationTimer getTimer() {
+		return timer;
+	}
 }
 
