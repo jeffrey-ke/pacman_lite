@@ -5,9 +5,11 @@ import javafx.scene.Node;
 
 public class Fruit extends Actor {
 
+	public boolean isEaten;
 	public Fruit(String name) {
 		String path = Fruit.class.getClassLoader().getResource("resources/" + name + ".png").toString();
 		setImage(new Image(path));
+		isEaten = false;
 	}
 
 	@Override
@@ -21,8 +23,13 @@ public class Fruit extends Actor {
 					((Ghost)n).setIsDamaged(true);
 				}
 			}
+			isEaten = true;
 		}
 
+	}
+	public boolean getIsEaten() {
+		// TODO Auto-generated method stub
+		return isEaten;
 	}
 
 }

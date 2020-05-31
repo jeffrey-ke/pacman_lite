@@ -1,8 +1,4 @@
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
+import javafx.scene.Node;
 
 public class Pacworld extends World {
 
@@ -20,6 +16,25 @@ public class Pacworld extends World {
 			g.setY(306);
 			add(g);
 			getTimer().stop();
+		}
+		else {
+			int numFruits = 0;
+			for(int i = 0; i < getChildren().size();) {
+				Node n = getChildren().get(i);
+				if(n instanceof Fruit && ((Fruit) n).isEaten) {
+					getChildren().remove(n);
+				}
+				i++;
+				
+			}
+			for(Node n : getChildren()) {
+				if(n instanceof Fruit) {
+					numFruits++;
+				}
+			}
+			if(numFruits == 0) {
+				setGameOver(true);
+			}
 		}
 	}
 	

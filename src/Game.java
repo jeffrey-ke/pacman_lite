@@ -44,6 +44,9 @@ public class Game extends Application {
 	private Wall block_26;
 	private Wall block_27;
 	private Wall block_28;
+	
+	private Fruit cherry;
+	private Fruit apple;
 	public Game() {
 		// TODO Auto-generated constructor stub
 	}
@@ -70,12 +73,12 @@ public class Game extends Application {
 //				world.add(dot);
 //			}
 //		}
-		pac.setX(51);
-		pac.setY(51);
+		pac.setX(186);
+		pac.setY(163);
 		
 		orange = new Ghost("orange");
 		world.add(orange);
-		orange.setX(433);
+		orange.setX(49);
 		orange.setY(49);
 		
 		block_0 = new Wall(Game.class.getClassLoader().getResource("resources/smaller_block.png").toString());
@@ -222,6 +225,16 @@ public class Game extends Application {
 		block_27.setX(352);
 		block_27.setY(432);
 		world.add(block_27);
+		
+		cherry = new Fruit("cherry");
+		cherry.setX(245);
+		cherry.setY(214);
+		world.add(cherry);
+		
+		apple = new Fruit("apple");
+		apple.setX(371);
+		apple.setY(152);
+		world.add(apple);
 		
 		Wall leftTopDivider = new Wall(Game.class.getClassLoader().getResource("resources/left_top_divider.png").toString());
 		leftTopDivider.setX(50);

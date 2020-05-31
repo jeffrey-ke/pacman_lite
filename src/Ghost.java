@@ -20,6 +20,8 @@ public class Ghost extends Actor {
 	private Image right;
 	private Image down;
 	private Image left;
+	
+	private Image damaged;
 	public Ghost(String colour) {
 		String _left = Ghost.class.getClassLoader().getResource("resources/" + colour + "_left.png").toString();
 		left = new Image(_left);
@@ -33,9 +35,10 @@ public class Ghost extends Actor {
 		String _down = Ghost.class.getClassLoader().getResource("resources/" + colour + "_down.png").toString();
 		down = new Image(_down);
 		
+		damaged = new Image(Ghost.class.getClassLoader().getResource("resources/ghost_damaged.png").toString());
 		isAlive = true;
-		setImage(down);
-		direction = DOWN;
+		setImage(left);
+		direction = LEFT;
 		isDamaged = false;
 	}
 
@@ -46,7 +49,9 @@ public class Ghost extends Actor {
 		else if(direction == UP) setImage(up);
 		else setImage(down);
 		
-		if(isDamaged) setImage(new Image(Ghost.class.getClassLoader().getResource("resource/ghost_damaged.png").toString()));
+		if(isDamaged) {
+			setImage(damaged);
+		}
 		
 		Random rand = new Random();
 		boolean canMove = false;
