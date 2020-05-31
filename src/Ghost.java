@@ -44,6 +44,8 @@ public class Ghost extends Actor {
 
 	@Override
 	public void act() {
+		Random r = new Random();
+		direction = r.nextInt(4);
 		if(direction == LEFT) setImage(left);
 		else if(direction == RIGHT) setImage(right);
 		else if(direction == UP) setImage(up);
@@ -51,85 +53,6 @@ public class Ghost extends Actor {
 		
 		if(isDamaged) {
 			setImage(damaged);
-		}
-		
-		Random rand = new Random();
-		boolean canMove = false;
-		if((15 + (int)getX()) % 16 == 0 && (15 + (int)getY()) % 16 == 0)
-		{
-			canMove = true;
-		}
-		//chooses a random movement direction
-		movement = rand.nextInt(4);
-		if(canMove)
-		{
-			if(movement == LEFT)
-			{
-				direction = LEFT;
-				move(-1, 0);
-				if(getX() < 49 || getX() > 451 || getOneIntersectingObject(Wall.class) != null)
-				{
-					move(1, 0);
-				}
-			}
-			else if(movement == RIGHT)
-			{
-				direction = RIGHT;
-				move(1, 0);
-				if(getX() < 49 || getX() > 451 || getOneIntersectingObject(Wall.class) != null)
-				{
-					move(-1, 0);
-				}
-			}
-			else if(movement == UP)
-			{
-				direction = UP;
-				move(0, -1);
-				if(getY() < 49 || getY() > 499|| getOneIntersectingObject(Wall.class) != null)
-				{
-					move(0, 1);
-				}
-			}
-			else if(movement == DOWN)
-			{
-				direction = DOWN;
-				move(0, 1);
-				if(getY() < 49 || getY() > 499|| getOneIntersectingObject(Wall.class) != null)
-				{
-					move(0, -1);
-				}
-			}
-		}
-		else
-		{
-			if(direction == LEFT) {
-				move(-1, 0);
-				if(getX() < 49 || getX() > 434 || getOneIntersectingObject(Wall.class) != null)
-				{
-					move(1, 0);
-				}
-			}
-			else if(direction == RIGHT) {
-				move(1, 0);
-				if(getX() < 49 || getX() > 434 || getOneIntersectingObject(Wall.class) != null)
-				{
-					move(-1, 0);
-				}
-			}
-			else if(direction == UP) {
-				move(0, -1);
-				if(getY() < 49 || getY() > 499|| getOneIntersectingObject(Wall.class) != null)
-				{
-					move(0, 1);
-				}
-			}
-			else if(direction == DOWN) {
-				move(0, 1);
-				if(getY() < 49 || getY() > 499|| getOneIntersectingObject(Wall.class) != null)
-				{
-					move(0, -1);
-				}
-			}
 		}
 	}
 	

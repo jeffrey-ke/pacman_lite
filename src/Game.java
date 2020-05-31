@@ -15,6 +15,10 @@ public class Game extends Application {
 	private Pacman pac;
 	private Pacworld world;
 	private Ghost orange;
+	private Ghost pink;
+	private Ghost orange_2;
+	private Ghost pink_2;
+	
 	private Wall block_0;
 	private Wall block_1;
 	private Wall block_2;
@@ -47,6 +51,7 @@ public class Game extends Application {
 	
 	private Fruit cherry;
 	private Fruit apple;
+	private Fruit strawberry;
 	public Game() {
 		// TODO Auto-generated constructor stub
 	}
@@ -78,8 +83,24 @@ public class Game extends Application {
 		
 		orange = new Ghost("orange");
 		world.add(orange);
-		orange.setX(49);
-		orange.setY(49);
+		orange.setX(59);
+		orange.setY(51);
+		
+		orange_2 = new Ghost("orange");
+		world.add(orange_2);
+		orange_2.setX(447);
+		orange_2.setY(116);
+		
+		pink = new Ghost("pink");
+		world.add(pink);
+		pink.setX(54);
+		pink.setY(454);
+		
+		pink_2 = new Ghost("pink");
+		world.add(pink_2);
+		pink_2.setX(90);
+		pink_2.setY(500);
+		
 		
 		block_0 = new Wall(Game.class.getClassLoader().getResource("resources/smaller_block.png").toString());
 		block_0.setX(80);
@@ -235,6 +256,11 @@ public class Game extends Application {
 		apple.setX(371);
 		apple.setY(152);
 		world.add(apple);
+		
+		strawberry = new Fruit("strawberry");
+		strawberry.setX(56);
+		strawberry.setY(501);
+		world.add(strawberry);
 		
 		Wall leftTopDivider = new Wall(Game.class.getClassLoader().getResource("resources/left_top_divider.png").toString());
 		leftTopDivider.setX(50);
