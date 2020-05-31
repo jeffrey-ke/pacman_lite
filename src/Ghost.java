@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Random;
 
 import javafx.scene.image.Image;
@@ -15,7 +16,7 @@ public class Ghost extends Actor {
 	public static final int RIGHT = 1;
 	public static final int DOWN = 2;
 	public static final int LEFT = 3;
-	
+	public static final int[] directions = new int[4];
 	private Image up;
 	private Image right;
 	private Image down;
@@ -56,37 +57,82 @@ public class Ghost extends Actor {
 		}
 		//chooses a random movement direction
 		movement = rand.nextInt(4);
-		
+		directions[direction]++;
+		System.out.println(Arrays.toString(directions));
 		if(canMove)
 		{
 			if(movement == LEFT)
 			{
 				direction = LEFT;
 				move(-1, 0);
+				if(getX() < 49 || getX() > 451 ||getOneIntersectingObject(Wall.class) != null)
+				{
+					move(1, 0);
+				}
 			}
 			else if(movement == RIGHT)
 			{
 				direction = RIGHT;
 				move(1, 0);
+				if(getX() < 49 || getX() > 451 ||getOneIntersectingObject(Wall.class) != null)
+				{
+					move(-1, 0);
+				}
 			}
 			else if(movement == UP)
 			{
 				direction = UP;
 				move(0, -1);
+				if(getY() < 49 || getY() > 499|| getOneIntersectingObject(Wall.class) != null)
+				{
+					move(0, 1);
+				}
 			}
 			else if(movement == DOWN)
 			{
 				direction = DOWN;
 				move(0, 1);
+				if(getY() < 49 || getY() > 499|| getOneIntersectingObject(Wall.class) != null)
+				{
+					move(0, -1);
+				}
 			}
 		}
 		else
 		{
-			if(direction == LEFT) move(-1, 0);
-			else if(direction == RIGHT) move(1, 0);
-			else if(direction == UP) move(0, -1);
-			else if(direction == DOWN) move(0, 1);
+			if(direction == LEFT) {
+				move(-1, 0);
+				if(getX() < 49 || getX() > 451 || getOneIntersectingObject(Wall.class) != null)
+				{
+					move(1, 0);
+				}
+			}
+			else if(direction == RIGHT) {
+				move(1, 0);
+				if(getX() < 49 || getX() > 451 || getOneIntersectingObject(Wall.class) != null)
+				{
+					move(1, 0);
+				}
+			}
+			else if(direction == UP) {
+				move(0, -1);
+				if(getY() < 49 || getY() > 499|| getOneIntersectingObject(Wall.class) != null)
+				{
+					move(0, 1);
+				}
+			}
+			else if(direction == DOWN) {
+				move(0, 1);
+				if(getY() < 49 || getY() > 499|| getOneIntersectingObject(Wall.class) != null)
+				{
+					move(0, -1);
+				}
+			}
 		}
+	}
+	
+	public int getDirection() {
+		return direction;
 	}
 
 }
