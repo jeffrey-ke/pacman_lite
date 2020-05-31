@@ -14,14 +14,18 @@ public abstract class World extends javafx.scene.layout.Pane {
 			@Override
 			public void handle(long t) {
 				act(t);
-				for(Node a : getChildren()) {
-					if (a instanceof Actor) {
-						try{
-							((Actor)a).act();
-						}catch(Exception n) {
-							continue;
+				try {
+					for(Node a : getChildren()) {
+						if (a instanceof Actor) {
+							try{
+								((Actor)a).act();
+							}catch(Exception n) {
+								continue;
+							}
 						}
 					}
+				} catch(Exception e) {
+					
 				}
 			}
 		};
