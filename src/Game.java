@@ -11,6 +11,12 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+/**
+ * This is the Game class. It stores all the game obstacles, walls, enemies, fruits, and pac man as instance variables.
+ * This is the entry point of the game. All the walls of the pac-man game are set 
+ * @author jeffreyke
+ *
+ */
 public class Game extends Application {
 	private Pacman pac;
 	private Pacworld world;
@@ -52,9 +58,7 @@ public class Game extends Application {
 	private Fruit cherry;
 	private Fruit apple;
 	private Fruit strawberry;
-	public Game() {
-		// TODO Auto-generated constructor stub
-	}
+	public Game() {}
 	public static void main(String[] args) {
 		launch();
 	}
@@ -67,17 +71,6 @@ public class Game extends Application {
 		pac = new Pacman();
 		world.add(pac);
 		root.setCenter(world);
-//		System.out.println(world.getHeight());
-//		for(int row = 0; row < 100; row++)
-//		{
-//			for(int col = 0; col < 100; col++)
-//			{
-//				Pacman dot = new Pacman();
-//				dot.setX(col);
-//				dot.setY(row);
-//				world.add(dot);
-//			}
-//		}
 		pac.setX(186);
 		pac.setY(163);
 		

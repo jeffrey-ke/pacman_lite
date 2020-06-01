@@ -3,7 +3,6 @@ import javafx.scene.input.KeyCode;
 public class Pacman extends Actor {
 
 	private boolean isClosed;
-	private boolean isAlive;
 	private boolean isPowered;
 	/*
 	 * The following instant variables are images for 
@@ -30,7 +29,14 @@ public class Pacman extends Actor {
 	public static final int DOWN = 2;
 	public static final int LEFT = 3;
 	
+	public static final int POWERED_TIME = 1200;
+	/** How much time pac-man has left being able to eat ghosts */
+	private int timeLeft;
+	
 	private KeyCode movement;
+	/**
+	 * Creates a pac-man object with all the sprites in each direction.
+	 */
 	public Pacman() {
 		String upO = Pacman.class.getClassLoader().getResource("resources/pac_up_open.png").toString();
 		upOpen = new Image(upO);
@@ -56,17 +62,37 @@ public class Pacman extends Actor {
 		direction = RIGHT;
 		
 		isClosed = true;
-		isAlive = true;
 		isPowered = false;
+		timeLeft = POWERED_TIME;
 	}
-	
+	/**
+	 * Sets whether pac-man can eat ghosts or not.
+	 * @param val whether pac-man can eat ghosts.
+	 */
 	public void setIsPowered(boolean val) {
 		isPowered = val;
+	}
+	
+	/**
+	 * Sets how much time pac-man has left.
+	 * @param timeLeft how much time he has left.
+	 */
+	public void setTimeLeft(int timeLeft) {
+		this.timeLeft = timeLeft;
 	}
 	
 	@Override
 	public void act() {
 		
+		// If pac-man is out of time, he can't eat ghosts anymore
+		if(timeLeft <= 0) {
+			isPowered = false;
+		}
+		
+		//if pac-man is still invulnerable, he loses a frme of time
+		if(isPowered) {
+			timeLeft--;
+		}
 		// Making pac-man open and close with each animation frame.
 		if(direction == LEFT)
 		{
@@ -86,8 +112,7 @@ public class Pacman extends Actor {
 		}
 		isClosed = !isClosed;
 		
-		//basic key commands to move pac-man. I'll have to 
-		//adjust it to account for the walls in pac-man
+		//basic key commands to move pac-man. 
 		boolean canMove = false;
 		if(getWorld().isKeyDown(KeyCode.LEFT))
 		{
@@ -230,7 +255,6 @@ public class Pacman extends Actor {
 		if(getOneIntersectingObject(Ghost.class) != null) {
 			if(isPowered) getWorld().remove(getOneIntersectingObject(Ghost.class));
 			else {
-				isAlive = false;
 				((Pacworld)getWorld()).setGameOver(true);
 			}
 			
