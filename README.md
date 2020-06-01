@@ -39,109 +39,34 @@ Two things to consider when planning this game:
  - Pacman remembers your keypresses. Unless he's stuck in a corner on purpose, Pcman is always moving and he remembers both his current direction and the next direction you give him. For example, if Pacman is travelling EAST in a horizontal "hall" and the UP key is pressed, he ignores it and keeps moving EAST until NORTH opens up. Then he automatically goes NORTH because he remembers that the player most recently pressed UP. This is an important feature to implement so your Pacman doesn't get stuck on the corner of wall intersections. Effectively, while Pacman looks like he can move continuously, he is really going from grid point to gridpoint and he changes directions only when he's at an exact gridpoint location. If you allow Pacman to turn/move whenever the player pushes a new direction your gameplay will feel terrible because you'll get stuck on walls all the time.
  - Programming ghosts takes time and there are lots of kinds of ghost movement you can create. The easiest ghosts to play against are ones that move randomly and have no idea who Pacman is. The hardest ghosts to play against are ones that hunt down and chase Pacman.
 
-## Class Design and Brainstorm ##
 
-Put all your brainstorm ideas, strategy approaches, and class outlines here
 
 ## Development Journal ##
 
-Every day you work, keep track of it here.
+**May 26th**
 
-**May 21 (time spent)**
+Goal:  Set up Pac-Man's povement
+Work accomplished:  Pac-Man moves only when the arrow keys are pressed. He stops moving once he hits a wall.
 
-Goal:  Code a concept demo
+**May 27th**
 
-Work accomplished:  Describe what you did today and how it went.
+Goal:  Adjust Pac-Man's movement to emulate the original game
 
-**Date (time spent)**
+Work accomplished:  I got Pac-Man to move only once he's at a certain position on the game-board, very similar to in the real pac-man, how he can't just turn
+when he wants to. 
 
-Goal:  What are you trying to accomplish today?
+**May 28th**
+Goal: make pac-man not bump into walls when moving
 
-Work accomplished:  Describe what you did today and how it went.
+Work accomplished: Fixed up the Pacman class. Instead of having an overarching boundary check of whether pacman can move/turn based on his coordinates, I determine whether he can move based on the user input. If the user wants pacman to turn downwards, I make a check to see whether 1. He's at an 'x' coordinate where that's feasible, and 2. there isn't a wall right in front of him. If there is a wall, I tell pacman he can't move and has to wait until he can. Pacman can 'remember' what move he has to make next when the chance comes. If he can't move yet, he continues in the direction he was in. When he finally turns, his direction changes.	*forgot to make include a message about the new Ghost class in previous commit* The ghost class is very similar to the Pacman class when it comes to movement. It generates a random number, and that number is its movement. Before it can move the ghost has to check whether it can move. if it can't, it has to keep going in the same direction until it can finally turn. Added the wall class. Doesn't do anything, it's mostly used so Pacman and the ghosts don't phase through the game obstacles.	Added some demo game obstacles, and changed the game board from grid format to what the actual pac-man game board looks like. Also deleted some obselete code.	
 
-***
-***
+**May 30th**
+Goal: figure out why pac-man gets stuck on certain walls
 
+Work accomplished: figured out why pac-man gets stuck: its because his height and width aren't the same. When he tries to turn a certain direction, his sprite potentially gets caught in the walls around him as he changes directions.Added all the in-game obstacles and walls. Cropped some sprites whose dimensions were too large. Also tried to make the ghosts move randomly throughout the map. Doesn't quiet work yet (they go out of bounds). Added what happens when pacman dies. When pacman dies without eating a fruit, therefore making the ghosts vulnerable, the words 'game over' display on the screen and the animation timer stops. I added the 'Gameover' class to display the 'Game Over' words. I also added the 'Fruit' class, which are the power pellets in my version of pac-man. I added some instance variables to keep track of whether the ghosts are alive and some boundary checks for their movement. I cleaned up some clutter comments in the Pacman class. I added some fruit sprites. - Implemented further the Fruit class and how it adds to the game. - When pacman eats a fruit, the ghosts become vulnerable and able to be eaten. - I also added some try-catch blocks to take care of the null pointers to the eaten fruits (the getWorld().remove(Actor a) method does not remove an actor it seems, only points it to null). - When a fruit gets eaten, it loops through all the ghosts in the game and turns them blue. - The game ends when all fruit are eaten, or pacman touches a non-blue ghost.
 
-# Example (Delete after you've read) #
+**May 31st**
+Goal: Give the ghosts limited movement
 
-**Name:**	Happy Sparky
+Work accomplished: ghosts now move in random directions every animation frame and can phase through game walls but must stay in bounds. Release 1.0 Pac-Man Lite. The goal is to eat all the fruits and avoid all the ghosts. Ghosts can be defeated by eating fruits. Accounted for all exceptions when ghosts are removed from the world (but the Game still calls 'act()' on them somehow). Release 1.1 Pac-Man Lite. The ghosts can now move in random directions in each animation frame. The 'invulnerability' mode that pac-man has once he's eaten a fruit only lasts 1200 animation frames. Each time a fruit is eaten the timer resets. I also added the javadoc comments.
 
-**Period:**	1
-
-**Game Title:** Bomb Squad
-
-## Game Proposal ##
-
-I want to make an Angry Birds clone where the player shoots different powerup items at targets.  However,
-I don't think handling all the physics is possible for me right now so I'll make the physics simpler and
-instead have game elements such as trampolines, lava, fog, fans, etc, that modify the shot path.  I'll also
-have different enemies and friendly characters you can't hit.
-
-Game controls:
-
-+ Mouse and buttons control your shot speed and direction
-+ Arrow keys control which powerup you will launch
-
-Game elements:
-
-+ Simple falling physics in a gravity world
-+ Stuff you hit doesn't tumble like in Angry Birds but is replaced with simpler mechanics
-+ Friendly characters you must avoid hitting
-	+ Some stay put where they are
-	+ Others walk back and forth so you must time your shot
-+ Armored enemies take two shots to kill (they drop their armor when hit first time)
-+ 3 Levels followed by a Boss level
-+ Trampolines - Your shot bounces off and continues farther
-+ Lava - kills your shot instantly
-+ Fog - your shot drops faster due to dense air
-+ Fans - adds wind and modifies the direction of your shot
-+ You must clear levels using a limited amount of shots
-
-How to win:
-
-+ Clear all levels using your limited bomb supply
-+ I might have a star scoring system so player can try for a perfect score
-
-## Link Examples ##
-Provide links to examples of your game idea.  This can be a playable online game, screenshots, YouTube videos of gameplay, etc.
-
-+ [Angry Birds](https://www.youtube.com/watch?v=aiiQ8btusrs) My original inspiration
-+ [Tiny Empire](http://www.freewebarcade.com/game/tiny-empire/) I love this!  I want to make something like this version!
-
-## Teacher Response ##
-
-**Approved!**
-
-Love your game plan!  Unless your boss level is truly awesome, it would be better to focus on having more
-levels that add progressive game play twists, just like the real Angry Birds game has.  Maybe introduce a
-new game element with each level and then have a few levels that take some thinking and replaying to beat.
-
-Also, you haven't addressed how you'll hit multiple enemies.  Is it one shot per enemy or can a single shot
-hit multiple enemies?  If so, how would that work?
-
-## Class Design and Brainstorm ##
-
-Put all your brainstorm ideas, strategy approaches, and class outlines here
-
-## Development Journal ##
-
-**Monday May 18 (4 hours)**
-
-Goal:  Make a raw demo of my cannon firing mechanics.  When I click the mouse, I want a cannonball to be
-       launched with its initial speed and angle determined by how far away the mouse is from the cannon.
-
-Work accomplished:  My strategy of having the game controller listen for mouse clicks worked.  When the
-         	        mouse is clicked, I find the distance from the mouse to the cannon and based on that
-					I create a new cannonball object with the right initial speed and direction.  It flies
-					through the air and is removed from the world once it goes out of view.
-
-**Tuesday May 19 (1 hour)**
-
-Goal:  I want the cannon to rotate so it points toward (follows) the mouse.
-
-Work accomplished:  I got this working pretty quickly so I also tried to add a parabolic path showing where
-the cannonball would travel when fired.  I honestly have no idea how to do this so I'm going to have to think
-of a strategy that will actually work.  I spent all my time looking through APIs and looking at how to draw
-parabolas on the Internet but nothing helped.  Maybe I should switch to displaying a "power meter" and show
-the current angle as text on the screen.
